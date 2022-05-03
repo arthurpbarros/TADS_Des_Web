@@ -1,0 +1,16 @@
+{% extends 'simuu/base.html' %}
+{% block conteudo %}
+    <div class="row row-eq-height mt-4">
+        {% for sim in simulados %}
+        <div class="col-md-6 col-sm-12 form-group pb-2">
+            <div class="card mb-3 text-center">
+                <div class="card-body">
+                  <h5 class="card-title">{{sim.titulo}}</h5>
+                  <p class="card-text">{{sim.descricao}}</p>
+                  <a href="{% url 'simuu:responderSimulado' sim.id %}" class="btn responderSimulado float-right">RESPONDER</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

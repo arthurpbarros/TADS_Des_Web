@@ -1,0 +1,23 @@
+{% extends 'simuu/base.html' %}
+{% block titulo %}
+    Listar Questões - Simuu
+{% endblock %}
+{% block conteudo %}
+    <div class="row row-eq-height mt-4">
+        {% for questao in questoes %}
+        <div class="col-md-6 col-sm-12 form-group pb-2">
+            <div class="card mb-3 text-center">
+                <div class="card-body">
+                    <h5 class="card-title ">{{questao.texto}}</h5>
+                    <p class="card-text text-left"> Alternativas: </p>
+                    {% for r in questao.get_respostas %}
+                        <p class="card-text text-left"> <strong>{{r}}</strong></p>
+                    {% endfor %}
+
+                  <!--<a href="#" class="btn responderSimulado float-right">RESPONDER</a>-->
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

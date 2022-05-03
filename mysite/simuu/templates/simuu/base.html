@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> {% block titulo %} {% endblock %} </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function() {
+            $(".close").click(function() {
+          		$(this).parent().fadeOut();
+        	});
+        });
+    </script>
+    <link rel="stylesheet" href="{% static 'simuu/css/main.css' %}" type="text/css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4 col-sm-3 col-md-3 menu position-fixed">
+                <h3 class="text-center logo"> Simuu </h3>
+                <ul class="list-group text-center links">
+                    <li class="list-group-item"><a class="link-menu" href="{% url 'simuu:listarSimulados' %}"> Simulados </a></li>
+                    <li class="list-group-item"><a class="link-menu" href="{% url 'simuu:listarQuestoes' %}"> Questões </a></li>
+                    <!--<li class="list-group-item">Resultados</li>-->
+                    {% if request.user.is_authenticated %}
+                    <li class="list-group-item"><a class="link-menu" href="{% url 'simuu:logout' %}"> Logout </a></li>
+                    {% else %}
+                    <li class="list-group-item"><a class="link-menu" href="{% url 'simuu:login' %}"> Login</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="col-8 offset-4 col-sm-9 offset-sm-3 col-md-9 offset-md-3 conteudo">
+                <div class="row">
+                    <div class="col-12 col-sm-8 offset-sm-2">
+                    {% if messages %}
+                        {% for msg in messages %}
+                            {% if msg.level_tag == 'error' %}
+                                <div class="text-center alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{msg.message}}</strong>
+                                    <button type="button" class="close btn btn-danger btn-sm" data-dismiss="alert" aria-label="Close">
+                                    X
+                                    </button>
+                                </div>
+                            {% else %}
+                                <div class="text-center alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>{{msg.message}}</strong>
+                                    <button type="button" class="close btn btn-danger btn-sm" data-dismiss="alert" aria-label="Close">
+                                    X
+                                    </button>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    </div>
+                </div>
+                {% block conteudo %}
+    		    {% endblock %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

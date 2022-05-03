@@ -1,0 +1,38 @@
+{% extends 'simuu/base.html' %}
+{% block titulo %}
+    Responder simulado - Simuu
+{% endblock %}
+{% block conteudo %}
+                <div class="container-fluid bg-light">
+                    <h2> {{ simulado.titulo }} </h2>
+                    <form method="POST" action="{% url 'simuu:submeterSimulado' %}">
+                    {% csrf_token %}
+                    <input type='number' name="id_simulado" value="{{simulado.id}}" style="display: none;">
+                    {% for questao in questoes %}
+                        <div class="form-group">
+                            <div class="questao">
+                            <h4> {{questao.texto}} </h4>
+                                {% for resposta in questao.resposta_set.all %}
+                                    {% if forloop.first %}
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="questao-{{questao.id}}" id="exampleRadios1" value="{{resposta.id}}" required>
+                                      <label class="form-check-label" for="exampleRadios1">
+                                         {{resposta.texto}}
+                                      </label>
+                                    </div>
+                                    {% else %}
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="questao-{{questao.id}}" id="exampleRadios1" value="{{resposta.id}}">
+                                      <label class="form-check-label" for="exampleRadios1">
+                                         {{resposta.texto}}
+                                      </label>
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary"> Responder Formulário</button>
+                    </form>
+                </div>
+{% endblock %}

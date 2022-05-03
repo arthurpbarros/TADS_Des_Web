@@ -26,11 +26,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['arthurpbarros.pythonanywhere.com']
 
-
+LOGIN_URL = 'simuu:login'
 # Application definition
 
 INSTALLED_APPS = [
     'root.apps.RootConfig',
+    'simuu.apps.SimuuConfig',
     'polls.apps.PollsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
